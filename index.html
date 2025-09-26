@@ -2,40 +2,38 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>بث مباشر</title>
+  <title>دردشة فيديو</title>
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="video-container">
-    <!-- فيديو المستخدم/المضيف -->
+    <!-- فيديو المستخدم -->
     <video id="localVideo" autoplay playsinline muted></video>
-    
-    <!-- الشريط العلوي -->
-    <div class="top-bar">
-      <div class="user-info">
-        <img src="https://via.placeholder.com/40" class="avatar">
-        <div>
-          <div class="username">Name <span class="host">Host</span></div>
-          <div class="stats">⭐ 123,456 👁️ 9,999</div>
-        </div>
-      </div>
-      <div class="icons">
-        <button class="icon-btn">⏱</button>
-        <button class="icon-btn">❌</button>
-      </div>
+    <!-- فيديو الطرف الآخر -->
+    <video id="remoteVideo" autoplay playsinline></video>
+
+    <!-- الشريط العلوي (أزرار التحكم بالكاميرا/الميكروفون) -->
+    <div class="top-controls">
+      <button class="control-btn" id="toggleCam">📷 تشغيل/إيقاف الكاميرا</button>
+      <button class="control-btn" id="toggleMic">🎤 تشغيل/إيقاف الميكروفون</button>
     </div>
 
     <!-- صندوق الرسائل -->
     <div class="chat-box" id="messages">
-      <div class="message"><b>nana:</b> I am a viewer.</div>
-      <div class="message"><b>nana:</b> Say hello to the host!</div>
+      <div class="message other">👤 مرحباً بك!</div>
     </div>
 
-    <!-- إدخال الرسائل -->
+    <!-- شريط الرسائل -->
     <div class="input-bar">
-      <input type="text" id="messageInput" placeholder="Enter your message...">
-      <button class="send-btn">📩</button>
-      <button class="gift-btn">🎁</button>
+      <input type="text" id="messageInput" placeholder="اكتب رسالتك...">
+      <button class="send-btn" id="sendMessage">📩</button>
+    </div>
+
+    <!-- أزرار أسفل الشاشة -->
+    <div class="bottom-controls">
+      <button class="main-btn" id="startChat">🚀 بدء دردشة</button>
+      <button class="main-btn" id="skipChat">⏭ تخطي دردشة</button>
+      <button class="main-btn" id="endChat">⛔ إنهاء</button>
     </div>
   </div>
 </body>
