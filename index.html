@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>دردشة فيديو</title>
+  <title>Video Chat</title>
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="video-container">
-    <!-- فيديو المستخدم -->
-    <video id="localVideo" autoplay playsinline muted></video>
-    <!-- فيديو الطرف الآخر -->
+
+    <!-- Remote video (الشخص الآخر) -->
     <video id="remoteVideo" autoplay playsinline></video>
 
-    <!-- الشريط العلوي (أزرار التحكم بالكاميرا/الميكروفون) -->
+    <!-- Local video (أنت) -->
+    <video id="localVideo" autoplay playsinline muted></video>
+
+    <!-- Top control buttons -->
     <div class="top-controls">
-      <button class="control-btn" id="toggleCam">📷 تشغيل/إيقاف الكاميرا</button>
-      <button class="control-btn" id="toggleMic">🎤 تشغيل/إيقاف الميكروفون</button>
+      <button class="control-btn" id="toggleCam">📷 Cam</button>
+      <button class="control-btn" id="toggleMic">🎤 Mic</button>
     </div>
 
-    <!-- صندوق الرسائل -->
+    <!-- Chat messages -->
     <div class="chat-box" id="messages">
-      <div class="message other">👤 مرحباً بك!</div>
+      <div class="message other">👤 Hello!</div>
+      <div class="message me">🙋 Hi there!</div>
     </div>
 
-    <!-- شريط الرسائل -->
+    <!-- Message input -->
     <div class="input-bar">
-      <input type="text" id="messageInput" placeholder="اكتب رسالتك...">
+      <input type="text" id="messageInput" placeholder="Type...">
       <button class="send-btn" id="sendMessage">📩</button>
     </div>
 
-    <!-- أزرار أسفل الشاشة -->
+    <!-- Bottom main controls -->
     <div class="bottom-controls">
-      <button class="main-btn" id="startChat">🚀 بدء دردشة</button>
-      <button class="main-btn" id="skipChat">⏭ تخطي دردشة</button>
-      <button class="main-btn" id="endChat">⛔ إنهاء</button>
+      <button class="main-btn start" id="startChat">🚀 Start</button>
+      <button class="main-btn skip" id="skipChat">⏭ Skip</button>
+      <button class="main-btn end" id="endChat">⛔ End</button>
     </div>
+
   </div>
 </body>
 </html>
