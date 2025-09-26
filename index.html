@@ -6,37 +6,33 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div class="video-container">
+  <div class="container">
 
-    <!-- Remote video (الشخص الآخر) -->
+    <!-- الفيديو الكبير -->
     <video id="remoteVideo" autoplay playsinline></video>
 
-    <!-- Local video (أنت) -->
-    <video id="localVideo" autoplay playsinline muted></video>
+    <!-- الفيديو الصغير -->
+    <video id="localVideo" autoplay muted playsinline></video>
 
-    <!-- Top control buttons -->
-    <div class="top-controls">
-      <button class="control-btn" id="toggleCam">📷 Cam</button>
-      <button class="control-btn" id="toggleMic">🎤 Mic</button>
+    <!-- صندوق الرسائل -->
+    <div class="chat-box">
+      <div class="messages">
+        <div class="message other">👤 Hi there!</div>
+        <div class="message me">🙂 Hello!</div>
+      </div>
+      <div class="input-area">
+        <input type="text" placeholder="Type...">
+        <button>📩</button>
+      </div>
     </div>
 
-    <!-- Chat messages -->
-    <div class="chat-box" id="messages">
-      <div class="message other">👤 Hello!</div>
-      <div class="message me">🙋 Hi there!</div>
-    </div>
-
-    <!-- Message input -->
-    <div class="input-bar">
-      <input type="text" id="messageInput" placeholder="Type...">
-      <button class="send-btn" id="sendMessage">📩</button>
-    </div>
-
-    <!-- Bottom main controls -->
-    <div class="bottom-controls">
-      <button class="main-btn start" id="startChat">🚀 Start</button>
-      <button class="main-btn skip" id="skipChat">⏭ Skip</button>
-      <button class="main-btn end" id="endChat">⛔ End</button>
+    <!-- الأزرار -->
+    <div class="controls">
+      <button>🚀 Start</button>
+      <button>⏭ Skip</button>
+      <button>⛔ End</button>
+      <button>🎥 Cam</button>
+      <button>🎤 Mic</button>
     </div>
 
   </div>
