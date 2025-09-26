@@ -1,45 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Omegle-like — Video Chat</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Omegle Clone</title>
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- background video/image is set in CSS -->
-  <div class="app">
-    <div class="stage">
-      <video id="remoteVideo" autoplay playsinline></video>
-      <video id="localVideo" autoplay playsinline muted></video>
-
-      <!-- top small controls -->
-      <div class="top-bar">
-        <div class="brand">Omegle-Clone</div>
-        <div id="status" class="status">Idle</div>
-      </div>
-
-      <!-- chat overlay on left -->
-      <div class="chat-panel">
-        <div id="messages" class="messages"></div>
-        <div class="chat-input">
-          <input id="msgInput" placeholder="Type..." />
-          <button id="sendBtn" title="Send">📩</button>
-        </div>
-      </div>
-
-      <!-- bottom controls (icons + short text) -->
-      <div class="controls">
-        <button id="startBtn" class="big start" title="Start">🚀</button>
-        <button id="skipBtn" class="big skip" title="Skip">⏭</button>
-        <button id="endBtn" class="big end" title="End">⛔</button>
-        <button id="camBtn" class="small" title="Cam">📷</button>
-        <button id="micBtn" class="small" title="Mic">🎤</button>
-      </div>
+  <div class="header">
+    <h1>Omegle</h1>
+    <div class="buttons">
+      <button id="startBtn">Start</button>
+      <button id="stopBtn">Stop</button>
     </div>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
+  <div class="chat-box">
+    <div id="messages" class="messages">
+      <div class="msg system">You’re now chatting with a random stranger. Say hi!</div>
+      <div class="msg other">👤 Stranger: Hello!</div>
+      <div class="msg me">🙂 You: Hi there!</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="msgInput" placeholder="Type your message...">
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
 </body>
 </html>
