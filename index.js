@@ -1,20 +1,66 @@
-const chatBox = document.getElementById("chat-box");
-const messageInput = document.getElementById("message");
+// index.js
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const path = require("path");
 
-function sendMessage() {
-  const message = messageInput.value;
-  if (message.trim() === "") return;
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-  const msgDiv = document.createElement("div");
-  msgDiv.textContent = "أنت: " + message;
-  chatBox.appendChild(msgDiv);
+// نخلي Express يخدم ملف index.html و index.css
+app.use(express.static(__dirname));
 
-  messageInput.value = "";
+// متغير لتخزين شخص واحد ينتظر
+let waiting = null;
 
-  // رد تلقائي مؤقت للتجربة
-  setTimeout(() => {
-    const replyDiv = document.createElement("div");
-    replyDiv.textContent = "مجهول: " + "رد آلي للتجربة";
-    chatBox.appendChild(replyDiv);
-  }, 1000);
-}
+io.on("connection", (socket) => {
+  console.log("✅ مستخدم متصل:", socket.id);
+
+  // البحث عن شريك
+  socket.on("find_partner", () => {
+    if (!waiting) {
+      waiting = socket.id;
+      socket.emit("status", "جاري البحث عن شريك...");
+    } else if (waiting === socket.id) {
+      // نفس الشخص
+    } else {
+      const partnerId = waiting;
+      waiting = null;
+
+      const room = `room_${socket.id}_${partnerId}`;
+      socket.join(room);
+      io.to(partnerId).socketsJoin(room);
+
+      socket.emit("paired", { room, partnerId });
+      io.to(partnerId).emit("paired", { room, partnerId: socket.id });
+
+      console.log(`🔗 تم ربط ${socket.id} مع ${partnerId} في الغرفة ${room}`);
+    }
+  });
+
+  // استقبال وإرسال الرسائل
+  socket.on("message", (data) => {
+    if (data && data.room) {
+      socket.to(data.room).emit("message", { text: data.text });
+    }
+  });
+
+  // إنهاء الجلسة
+  socket.on("leave", (room) => {
+    socket.to(room).emit("partner_left");
+    socket.leave(room);
+  });
+
+  // عند خروج المستخدم
+  socket.on("disconnect", () => {
+    console.log("❌ مستخدم خرج:", socket.id);
+    if (waiting === socket.id) waiting = null;
+  });
+});
+
+// تشغيل السيرفر
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () =>
+  console.log(`🚀 الخادم يعمل على http://localhost:${PORT}`)
+);
