@@ -1,130 +1,74 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: url('sea-bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
+  padding: 0;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('bg.jpg'); /* ← ضع هنا اسم الصورة */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
 }
 
-.container {
-  position: relative;
-  width: 100%;
+/* الفيديو في الوسط */
+#video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
   height: 100%;
 }
 
-/* الفيديو الكبير */
-#remoteVideo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+video {
   width: 90%;
-  height: auto;
-  max-height: 70%;
-  transform: translate(-50%, -50%);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  background: black;
+  max-height: 70vh;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* الفيديو الصغير */
-#localVideo {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 120px;
-  height: 90px;
-  border: 2px solid white;
-  border-radius: 10px;
-  background: black;
-  z-index: 2;
-}
-
-/* صندوق الرسائل */
-.chat-box {
-  position: absolute;
-  bottom: 80px;
-  left: 15px;
-  width: 250px;
-  max-height: 40%;
+/* صندوق الشات على الجانب */
+#chat-container {
+  width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  background: rgba(0,0,0,0.4);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7); /* شفاف قليلاً ليبان الخلفية */
+  backdrop-filter: blur(6px);
+  border-left: 2px solid #ddd;
+}
+
+#messages {
+  flex: 1;
   padding: 10px;
-  overflow: hidden;
-}
-
-.messages {
-  flex: 1;
   overflow-y: auto;
-  margin-bottom: 8px;
 }
 
-.message {
-  margin: 4px 0;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 14px;
-  max-width: 90%;
-}
-
-.message.me {
-  background: rgba(0, 123, 255, 0.8);
-  align-self: flex-end;
-}
-
-.message.other {
-  background: rgba(255, 255, 255, 0.2);
-  align-self: flex-start;
-}
-
-/* إدخال الرسائل */
-.input-area {
+#input-container {
   display: flex;
-  gap: 5px;
+  padding: 10px;
+  border-top: 1px solid #ccc;
 }
 
-.input-area input {
+#input-container input {
   flex: 1;
-  padding: 6px;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: none;
-  outline: none;
 }
 
-.input-area button {
-  background: #ff3366;
-  color: white;
+#input-container button {
+  margin-left: 8px;
+  padding: 8px 12px;
   border: none;
-  padding: 6px 10px;
+  background-color: #3498db;
+  color: #fff;
   border-radius: 8px;
   cursor: pointer;
 }
 
-/* الأزرار */
-.controls {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.controls button {
-  background: #ff3366;
-  border: none;
-  color: white;
-  font-size: 14px;
-  padding: 10px 14px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.controls button:hover {
-  background: #ff5580;
+#input-container button:hover {
+  background-color: #2980b9;
 }
