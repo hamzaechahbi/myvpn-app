@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background: #000;
   color: white;
+  overflow: hidden;
 }
 
 .video-container {
@@ -10,70 +11,62 @@ body {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: #000;
 }
 
 video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.top-bar {
+/* فيديو الطرف الآخر */
+#remoteVideo {
+  z-index: 1;
+}
+
+/* فيديو المستخدم (صغير بالزاوية) */
+#localVideo {
+  z-index: 2;
+  width: 150px;
+  height: 120px;
+  position: absolute;
+  bottom: 100px;
+  right: 10px;
+  border: 2px solid white;
+  border-radius: 8px;
+  background: black;
+}
+
+/* أزرار أعلى الشاشة */
+.top-controls {
   position: absolute;
   top: 10px;
   left: 10px;
   right: 10px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 3;
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  background: rgba(0,0,0,0.5);
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-
-.user-info .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.user-info .username {
-  font-weight: bold;
-}
-
-.user-info .host {
-  background: green;
-  padding: 2px 6px;
-  border-radius: 6px;
-  font-size: 12px;
-  margin-left: 5px;
-}
-
-.stats {
-  font-size: 12px;
-  color: #ccc;
-}
-
-.icons .icon-btn {
-  background: rgba(0,0,0,0.5);
+.control-btn {
+  background: rgba(0,0,0,0.6);
   border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
   color: white;
-  font-size: 18px;
-  margin-left: 8px;
-  padding: 6px 10px;
-  border-radius: 10px;
   cursor: pointer;
+  font-size: 14px;
 }
 
+/* صندوق الرسائل */
 .chat-box {
   position: absolute;
-  bottom: 70px;
+  bottom: 140px;
   left: 10px;
   right: 10px;
   max-height: 200px;
@@ -82,21 +75,28 @@ video {
   border-radius: 10px;
   padding: 10px;
   font-size: 14px;
+  z-index: 3;
 }
 
 .message {
   margin-bottom: 5px;
 }
 
+.message.other {
+  color: #ffcc00;
+}
+
+/* إدخال الرسائل */
 .input-bar {
   position: absolute;
-  bottom: 15px;
+  bottom: 80px;
   left: 10px;
   right: 10px;
   display: flex;
   background: rgba(0,0,0,0.5);
   border-radius: 30px;
   padding: 5px;
+  z-index: 3;
 }
 
 .input-bar input {
@@ -109,11 +109,33 @@ video {
   font-size: 14px;
 }
 
-.send-btn, .gift-btn {
+.send-btn {
   background: none;
   border: none;
   font-size: 20px;
   margin-left: 10px;
   cursor: pointer;
   color: white;
+}
+
+/* أزرار أسفل الشاشة */
+.bottom-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  z-index: 3;
+}
+
+.main-btn {
+  background: crimson;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
