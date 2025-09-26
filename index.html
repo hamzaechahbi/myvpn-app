@@ -1,40 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Video Chat</title>
+  <meta charset="utf-8" />
+  <title>Omegle-like — Video Chat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div class="container">
+  <!-- background video/image is set in CSS -->
+  <div class="app">
+    <div class="stage">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay playsinline muted></video>
 
-    <!-- الفيديو الكبير -->
-    <video id="remoteVideo" autoplay playsinline></video>
-
-    <!-- الفيديو الصغير -->
-    <video id="localVideo" autoplay muted playsinline></video>
-
-    <!-- صندوق الرسائل -->
-    <div class="chat-box">
-      <div class="messages">
-        <div class="message other">👤 Hi there!</div>
-        <div class="message me">🙂 Hello!</div>
+      <!-- top small controls -->
+      <div class="top-bar">
+        <div class="brand">Omegle-Clone</div>
+        <div id="status" class="status">Idle</div>
       </div>
-      <div class="input-area">
-        <input type="text" placeholder="Type...">
-        <button>📩</button>
+
+      <!-- chat overlay on left -->
+      <div class="chat-panel">
+        <div id="messages" class="messages"></div>
+        <div class="chat-input">
+          <input id="msgInput" placeholder="Type..." />
+          <button id="sendBtn" title="Send">📩</button>
+        </div>
+      </div>
+
+      <!-- bottom controls (icons + short text) -->
+      <div class="controls">
+        <button id="startBtn" class="big start" title="Start">🚀</button>
+        <button id="skipBtn" class="big skip" title="Skip">⏭</button>
+        <button id="endBtn" class="big end" title="End">⛔</button>
+        <button id="camBtn" class="small" title="Cam">📷</button>
+        <button id="micBtn" class="small" title="Mic">🎤</button>
       </div>
     </div>
-
-    <!-- الأزرار -->
-    <div class="controls">
-      <button>🚀 Start</button>
-      <button>⏭ Skip</button>
-      <button>⛔ End</button>
-      <button>🎥 Cam</button>
-      <button>🎤 Mic</button>
-    </div>
-
   </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>
