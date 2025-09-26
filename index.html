@@ -2,25 +2,40 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>دردشة عشوائية</title>
+  <title>بث مباشر</title>
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div class="container">
-    <h1>دردشة عشوائية</h1>
-    <div id="status">غير متصل</div>
-
-    <div id="messages">
-      <!-- الرسائل ستظهر هنا -->
-      <div class="message me">هذه رسالتك</div>
-      <div class="message other">هذه رسالة من الطرف الآخر</div>
+  <div class="video-container">
+    <!-- فيديو المستخدم/المضيف -->
+    <video id="localVideo" autoplay playsinline muted></video>
+    
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+      <div class="user-info">
+        <img src="https://via.placeholder.com/40" class="avatar">
+        <div>
+          <div class="username">Name <span class="host">Host</span></div>
+          <div class="stats">⭐ 123,456 👁️ 9,999</div>
+        </div>
+      </div>
+      <div class="icons">
+        <button class="icon-btn">⏱</button>
+        <button class="icon-btn">❌</button>
+      </div>
     </div>
 
-    <div class="input-area">
-      <input type="text" id="messageInput" placeholder="اكتب رسالة...">
-      <button class="btn-send">إرسال</button>
-      <button class="btn-start">بدء دردشة</button>
-      <button class="btn-end">إنهاء</button>
+    <!-- صندوق الرسائل -->
+    <div class="chat-box" id="messages">
+      <div class="message"><b>nana:</b> I am a viewer.</div>
+      <div class="message"><b>nana:</b> Say hello to the host!</div>
+    </div>
+
+    <!-- إدخال الرسائل -->
+    <div class="input-bar">
+      <input type="text" id="messageInput" placeholder="Enter your message...">
+      <button class="send-btn">📩</button>
+      <button class="gift-btn">🎁</button>
     </div>
   </div>
 </body>
