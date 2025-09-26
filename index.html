@@ -1,82 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Omegle Clone</title>
-  <style>
-    body{font-family: Arial, sans-serif;max-width:600px;margin:auto;padding:20px;text-align:center}
-    #chat{border:1px solid #ccc;height:300px;overflow:auto;margin:10px 0;padding:10px;text-align:left}
-    input{width:70%;padding:8px}
-    button{padding:8px 12px;margin:2px}
-    .me{font-weight:bold;color:blue}
-    .partner{color:green}
-  </style>
+  <meta charset="UTF-8">
+  <title>دردشة عشوائية</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <h2>دردشة عشوائية</h2>
-  <div id="status">غير متصل</div>
-  <div id="chat"></div>
-  <input id="input" type="text" placeholder="اكتب رسالة..." />
-  <button onclick="sendMsg()">إرسال</button>
-  <button onclick="find()">بدء دردشة</button>
-  <button onclick="leave()">إنهاء</button>
+  <div class="container">
+    <h1>دردشة عشوائية</h1>
+    <div id="status">غير متصل</div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-    let currentRoom = null;
+    <div id="messages">
+      <!-- الرسائل ستظهر هنا -->
+      <div class="message me">هذه رسالتك</div>
+      <div class="message other">هذه رسالة من الطرف الآخر</div>
+    </div>
 
-    function append(msg, cls='') {
-      const d = document.createElement('div');
-      d.className = cls;
-      d.textContent = msg;
-      document.getElementById('chat').appendChild(d);
-      document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-    }
-
-    socket.on("connect", () => {
-      document.getElementById('status').textContent = "متصل: " + socket.id;
-    });
-
-    socket.on("status", (t) => {
-      document.getElementById('status').textContent = t;
-    });
-
-    socket.on("paired", (data) => {
-      currentRoom = data.room;
-      document.getElementById('status').textContent = "تم العثور على شريك!";
-      append("تم الاتصال بشريك.", "system");
-    });
-
-    socket.on("message", (data) => {
-      append("شريك: " + data.text, "partner");
-    });
-
-    socket.on("partner_left", () => {
-      append("الشريك غادر المحادثة.", "system");
-      currentRoom = null;
-    });
-
-    function sendMsg() {
-      const text = document.getElementById('input').value.trim();
-      if (!text) return;
-      if (!currentRoom) { append("لا يوجد شريك!", "system"); return; }
-      socket.emit("message", { room: currentRoom, text });
-      append("أنا: " + text, "me");
-      document.getElementById('input').value = "";
-    }
-
-    function find() {
-      socket.emit("find_partner");
-      append("جاري البحث عن شريك...", "system");
-    }
-
-    function leave() {
-      if (currentRoom) socket.emit("leave", currentRoom);
-      currentRoom = null;
-      append("أنهيت الدردشة.", "system");
-    }
-  </script>
+    <div class="input-area">
+      <input type="text" id="messageInput" placeholder="اكتب رسالة...">
+      <button class="btn-send">إرسال</button>
+      <button class="btn-start">بدء دردشة</button>
+      <button class="btn-end">إنهاء</button>
+    </div>
+  </div>
 </body>
 </html>
