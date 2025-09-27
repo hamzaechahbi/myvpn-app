@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>omegle.live — Random Video Chat</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- header with brand and controls -->
+    <header class="top">
+      <div class="brand">omegle.live</div>
+      <div class="top-controls">
+        <button id="startBtn" class="btn primary">Start</button>
+        <button id="stopBtn" class="btn">Stop</button>
+      </div>
+    </header>
+
+    <!-- main layout: left = video area, right = chat -->
+    <main class="main">
+      <!-- left column: video stack -->
+      <section class="video-col">
+        <!-- remote video large -->
+        <div class="video-box remote-box">
+          <video id="remoteVideo" autoplay playsinline></video>
+          <div class="video-label">Stranger</div>
+        </div>
+
+        <!-- local video small -->
+        <div class="video-box local-box">
+          <video id="localVideo" autoplay muted playsinline></video>
+          <div class="video-label">You</div>
+        </div>
+
+        <!-- bottom controls (take snapshot etc) -->
+        <div class="video-actions">
+          <button class="btn">Take Snapshot</button>
+        </div>
+      </section>
+
+      <!-- right column: chat -->
+      <aside class="chat-col">
+        <div class="system-msg">You're now chatting with a random stranger. Say hi!</div>
+
+        <div id="messages" class="messages">
+          <!-- chat messages go here -->
+          <div class="msg other"><span class="who">Stranger:</span> Hello!</div>
+          <div class="msg me"><span class="who">You:</span> Hi there!</div>
+        </div>
+
+        <form id="chatForm" class="chat-form" onsubmit="return false;">
+          <input id="msgInput" class="msg-input" type="text" placeholder="Type your message..." />
+          <button id="sendBtn" class="btn send">Send</button>
+        </form>
+
+        <div class="bottom-controls">
+          <button id="nextBtn" class="btn secondary">Next</button>
+          <button id="camBtn" class="btn secondary">Cam</button>
+          <button id="micBtn" class="btn secondary">Mic</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <small>omegle.live — demo UI (frontend only)</small>
+    </footer>
+  </div>
+</body>
+</html>
