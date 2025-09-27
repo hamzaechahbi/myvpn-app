@@ -1,0 +1,73 @@
+/* index.css - Omegle-like layout for omegle.live (responsive) */
+:root{
+  --bg:#ffffff;
+  --accent:#1e90ff;
+  --muted:#f2f2f2;
+  --text:#222;
+  --panel:#fff7f0;
+  --chat-bg:#ffffff;
+  --border:#ddd;
+  --radius:8px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Arial, Helvetica, sans-serif;background:var(--bg);color:var(--text)}
+
+.page{display:flex;flex-direction:column;min-height:100vh}
+
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:linear-gradient(#fff,#fafafa)}
+.brand{font-size:20px;font-weight:700;color:var(--accent)}
+.top-controls .btn{margin-left:8px}
+
+/* main area */
+.main{flex:1;display:flex;gap:18px;padding:18px;align-items:flex-start}
+
+/* left video column */
+.video-col{flex:1;display:flex;flex-direction:column;gap:12px;min-width:360px;max-width:720px}
+
+/* remote (big) video box */
+.video-box{position:relative;border-radius:8px;overflow:hidden;background:#000;box-shadow:0 4px 14px rgba(0,0,0,0.06)}
+.remote-box{flex:1;min-height:360px;border:1px solid var(--border)}
+.remote-box video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* local small preview box */
+.local-box{width:240px;height:160px;border:1px solid var(--border)}
+.local-box video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* labels on video boxes */
+.video-label{position:absolute;left:8px;top:8px;background:rgba(255,255,255,0.92);color:#111;padding:4px 8px;border-radius:14px;font-size:13px;font-weight:600}
+
+/* video actions */
+.video-actions{display:flex;gap:8px;margin-top:6px}
+
+/* right chat column */
+.chat-col{width:360px;display:flex;flex-direction:column;gap:10px}
+.system-msg{background:#fff8e1;border:1px solid #ffe59d;padding:10px;border-radius:6px;text-align:center;color:#735b00;font-size:14px}
+.messages{flex:1;overflow:auto;padding:8px;border:1px solid var(--border);background:var(--chat-bg);border-radius:6px}
+.msg{padding:8px 10px;margin:8px 0;border-radius:6px;max-width:88%;line-height:1.3;font-size:14px}
+.msg .who{font-weight:700;margin-right:6px}
+.msg.other{background:#f6f6f6;color:#111;align-self:flex-start}
+.msg.me{background:#dff4ff;color:#084d6e;align-self:flex-end}
+
+/* chat input */
+.chat-form{display:flex;gap:8px;margin-top:6px}
+.msg-input{flex:1;padding:10px;border:1px solid var(--border);border-radius:6px;font-size:14px}
+.btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+.btn.secondary{background:#f5f5f5;color:#222;border:1px solid var(--border)}
+.btn.primary{background:var(--accent);box-shadow:0 4px 12px rgba(30,144,255,0.2)}
+.btn.send{padding:8px 14px}
+
+/* bottom small controls */
+.bottom-controls{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+
+/* footer */
+.footer{text-align:center;padding:10px;color:#666;border-top:1px solid var(--border);background:#fbfbfb}
+
+/* responsive adjustments */
+@media (max-width:980px){
+  .main{flex-direction:column;padding:12px}
+  .chat-col{width:100%}
+  .video-col{width:100%;max-width:100%}
+  .local-box{position:absolute;top:12px;left:12px;width:140px;height:100px;z-index:6;border:2px solid rgba(255,255,255,0.9)}
+             }
