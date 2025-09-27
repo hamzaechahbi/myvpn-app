@@ -1,66 +1,60 @@
-// index.js
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
-const path = require("path");
+// عناصر HTML
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const nextBtn = document.getElementById("nextBtn");
+const sendBtn = document.getElementById("sendBtn");
+const msgInput = document.getElementById("msgInput");
+const chatBox = document.getElementById("chatBox");
+const localVideo = document.getElementById("localVideo");
+const remoteVideo = document.getElementById("remoteVideo");
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+// ✅ تشغيل الكاميرا
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+    localVideo.srcObject = stream;
+  } catch (err) {
+    alert("Camera or mic access denied!");
+    console.error(err);
+  }
+}
 
-// نخلي Express يخدم ملف index.html و index.css
-app.use(express.static(__dirname));
-
-// متغير لتخزين شخص واحد ينتظر
-let waiting = null;
-
-io.on("connection", (socket) => {
-  console.log("✅ مستخدم متصل:", socket.id);
-
-  // البحث عن شريك
-  socket.on("find_partner", () => {
-    if (!waiting) {
-      waiting = socket.id;
-      socket.emit("status", "جاري البحث عن شريك...");
-    } else if (waiting === socket.id) {
-      // نفس الشخص
-    } else {
-      const partnerId = waiting;
-      waiting = null;
-
-      const room = `room_${socket.id}_${partnerId}`;
-      socket.join(room);
-      io.to(partnerId).socketsJoin(room);
-
-      socket.emit("paired", { room, partnerId });
-      io.to(partnerId).emit("paired", { room, partnerId: socket.id });
-
-      console.log(`🔗 تم ربط ${socket.id} مع ${partnerId} في الغرفة ${room}`);
-    }
-  });
-
-  // استقبال وإرسال الرسائل
-  socket.on("message", (data) => {
-    if (data && data.room) {
-      socket.to(data.room).emit("message", { text: data.text });
-    }
-  });
-
-  // إنهاء الجلسة
-  socket.on("leave", (room) => {
-    socket.to(room).emit("partner_left");
-    socket.leave(room);
-  });
-
-  // عند خروج المستخدم
-  socket.on("disconnect", () => {
-    console.log("❌ مستخدم خرج:", socket.id);
-    if (waiting === socket.id) waiting = null;
-  });
+// ✅ زر Start
+startBtn.addEventListener("click", () => {
+  startCamera();
+  addMessage("system", "You started a new chat!");
 });
 
-// تشغيل السيرفر
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () =>
-  console.log(`🚀 الخادم يعمل على http://localhost:${PORT}`)
-);
+// ✅ زر Stop
+stopBtn.addEventListener("click", () => {
+  localVideo.srcObject = null;
+  remoteVideo.srcObject = null;
+  addMessage("system", "You left the chat.");
+});
+
+// ✅ زر Next (تجريبي الآن)
+nextBtn.addEventListener("click", () => {
+  addMessage("system", "Searching for a new partner...");
+});
+
+// ✅ زر Send رسالة
+sendBtn.addEventListener("click", () => {
+  const text = msgInput.value.trim();
+  if (text) {
+    addMessage("you", text);
+    msgInput.value = "";
+    // هنا لاحقًا رح نرسل الرسالة للسيرفر
+  }
+});
+
+// ✅ إضافة رسالة للواجهة
+function addMessage(sender, text) {
+  const div = document.createElement("div");
+  div.className = sender;
+  div.textContent = sender === "you" ? "You: " + text : text;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
